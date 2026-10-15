@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Surat Masuk</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased py-12">
+@extends('layouts.app')
 
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+@section('title', 'Detail Surat Masuk')
+
+@section('content')
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <!-- Tombol Kembali -->
         <div class="mb-6">
             <a href="/surat-masuk" class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800">
@@ -49,6 +43,4 @@
             </div>
         </div>
     </div>
-
-</body>
-</html>
+@endsection
