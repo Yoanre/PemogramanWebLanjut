@@ -21,6 +21,7 @@
             <nav class="flex space-x-6">
                 <a href="/surat-masuk" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Beranda</a>
                 <a href="/surat-masuk" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Data Surat</a>
+                <a href="/surat-keluar" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Surat Keluar</a>
             </nav>
         </div>
     </header>

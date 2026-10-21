@@ -6,71 +6,60 @@ use Illuminate\Http\Request;
 
 class SuratMasukController extends Controller
 {
+    // Menyediakan data dummy agar bisa digunakan bersama
+    private function getDataSurat()
+    {
+        return [
+            [
+                'id'          => 1,
+                'nomor_surat' => '001/FT/x/2026',
+                'tanggal'     => '08-10-2026',
+                'pengirim'    => 'Fakultas Teknik',
+                'perihal'     => 'Undangan Rapat',
+            ],
+            [
+                'id'          => 2,
+                'nomor_surat' => '002/FT/x/2026',
+                'tanggal'     => '09-10-2026',
+                'pengirim'    => 'Rektorat',
+                'perihal'     => 'Pengumuman Libur',
+            ],
+            [
+                'id'          => 3,
+                'nomor_surat' => '003/FT/x/2026',
+                'tanggal'     => '10-10-2026',
+                'pengirim'    => 'Fakultas Hukum',
+                'perihal'     => 'Undangan Reuni',
+            ]
+        ];
+    }
+
+    // Method untuk Halaman Dashboard (Ringkasan & Statistik)
+    public function dashboard()
+    {
+        $suratMasuk = $this->getDataSurat();
+
+        // Karena file dashboard.blade.php ada di dalam folder layouts/
+        return view('layouts.dashboard', compact('suratMasuk'));
+    }
+
+    // Method untuk Halaman Tabel Data Surat Masuk
     public function index()
     {
-        $suratMasuk = [
-            [
-                'id'          => 1,
-                'nomor_surat' => '001/FT/x/2026',
-                'tanggal'     => '08-10-2026',
-                'pengirim'    => 'Fakultas Teknik',
-                'perihal'     => 'Undangan Rapat',
-            ],
-            [
-                'id'          => 2,
-                'nomor_surat' => '002/FT/x/2026',
-                'tanggal'     => '09-10-2026',
-                'pengirim'    => 'Rektorat',
-                'perihal'     => 'Pengumuman Libur',
-            ],
-            [
-                'id'          => 3,
-                'nomor_surat' => '003/FT/x/2026',
-                'tanggal'     => '10-10-2026',
-                'pengirim'    => 'Fakultas Hukum',
-                'perihal'     => 'Undangan Reuni',
-            ]
-        ];
-
-        // Data ini nantinya akan dikirim ke view index.blade.php
+        $suratMasuk = $this->getDataSurat();
         return view('surat-masuk.index', compact('suratMasuk'));
     }
+
+    // Method untuk Detail Surat
     public function show($id)
     {
-        // Daftar data dummy yang sama
-        $suratMasuk = [
-            [
-                'id'          => 1,
-                'nomor_surat' => '001/FT/x/2026',
-                'tanggal'     => '08-10-2026',
-                'pengirim'    => 'Fakultas Teknik',
-                'perihal'     => 'Undangan Rapat',
-            ],
-            [
-                'id'          => 2,
-                'nomor_surat' => '002/FT/x/2026',
-                'tanggal'     => '09-10-2026',
-                'pengirim'    => 'Rektorat',
-                'perihal'     => 'Pengumuman Libur',
-            ],
-            [
-                'id'          => 3,
-                'nomor_surat' => '003/FT/x/2026',
-                'tanggal'     => '10-10-2026',
-                'pengirim'    => 'Fakultas Hukum',
-                'perihal'     => 'Undangan Reuni',
-            ]
-        ];
-
-        // Cari surat berdasarkan ID
+        $suratMasuk = $this->getDataSurat();
         $surat = collect($suratMasuk)->firstWhere('id', $id);
 
-        // Jika data tidak ditemukan, tampilkan pesan error 404
         if (!$surat) {
             abort(404, 'Surat tidak ditemukan');
         }
 
-        // Kirim data surat ke view show.blade.php
         return view('surat-masuk.show', compact('surat'));
     }
 }
