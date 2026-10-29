@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tanggal');         // Diubah menjadi date
             $table->string('pengirim');
             $table->string('perihal')->nullable();
+            $table->text('keterangan')->nullable(); // Kolom keterangan yang ditambahkan
             $table->timestamps();
         });
     }

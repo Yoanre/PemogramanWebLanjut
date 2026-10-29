@@ -4,14 +4,13 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use Illuminate\Support\Facades\Route;
 
-// Halaman utama diarahkan ke method dashboard di Controller
-Route::get('/', [SuratMasukController::class, 'dashboard']);
+// Halaman utama / Dashboard
+Route::get('/', [SuratMasukController::class, 'dashboard'])->name('dashboard');
 
-// Halaman Daftar Tabel Surat Masuk
-Route::get('/surat-masuk', [SuratMasukController::class, 'index']);
+// Resource Route untuk Surat Masuk (menggantikan route index dan show yang lama)
+Route::resource('surat-masuk', SuratMasukController::class)
+    ->parameters(['surat-masuk' => 'id']);
 
-// Halaman Detail Surat Berdasarkan ID
-Route::get('/surat-masuk/{id}', [SuratMasukController::class, 'show']);
-
+// Route Surat Keluar yang sudah ada sebelumnya tetap dibiarkan
 Route::get('/surat-keluar', [SuratKeluarController::class, 'index']);
 Route::get('/surat-keluar/{id}', [SuratKeluarController::class, 'show']);

@@ -36,19 +36,19 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <td class="py-4 px-6 font-mono text-indigo-600 font-semibold">
-                                    {{ $item['nomor_surat'] }}
+                                    {{ $item->nomor_surat }}
                                 </td>
                                 <td class="py-4 px-6 text-gray-600">
-                                    {{ $item['tanggal'] }}
+                                    {{ $item->tanggal }}
                                 </td>
                                 <td class="py-4 px-6 text-gray-800 font-medium">
-                                    {{ $item['tujuan'] }}
+                                    {{ $item->tujuan }}
                                 </td>
                                 <td class="py-4 px-6 text-gray-600">
-                                    {{ $item['perihal'] }}
+                                    {{ $item->perihal }}
                                 </td>
                                 <td class="py-4 px-6 text-center">
-                                    <a href="/surat-keluar/{{ $item['id'] }}" 
+                                    <a href="/surat-keluar/{{ $item->id }}" 
                                        class="inline-flex items-center px-3 py-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-md border border-indigo-200 hover:bg-indigo-600 hover:text-white transition duration-200">
                                         Detail
                                     </a>

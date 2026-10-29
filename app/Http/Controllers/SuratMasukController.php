@@ -1,39 +1,84 @@
 <?php
 
+namespace App\Controllers; // atau namespace App\Http\Controllers; tergantung struktur awalmu
+
 namespace App\Http\Controllers;
 
+use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
-use App\Models\SuratMasuk; // 1. Panggil Model SuratMasuk di atas
 
 class SuratMasukController extends Controller
 {
-    // Method untuk Halaman Dashboard (Statistik)
+
     public function dashboard()
     {
-        // Mengambil seluruh data dari database tabel surat_masuks
-        $suratMasuk = SuratMasuk::all(); 
+        $suratMasuk = SuratMasuk::all();
+        
         return view('layouts.dashboard', compact('suratMasuk'));
     }
-
-    // Method untuk Halaman Tabel Data Surat Masuk
     public function index()
     {
-        // Mengambil seluruh data dari database
-        $suratMasuk = SuratMasuk::all(); 
+        $suratMasuk = SuratMasuk::orderBy('id', 'desc')->get();
         return view('surat-masuk.index', compact('suratMasuk'));
     }
 
-    // Method untuk Detail Surat Berdasarkan ID
+    public function create()
+    {
+        return view('surat-masuk.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nomor_surat' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'pengirim' => 'required|string|max:255',
+            'perihal' => 'required|string|max:255',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        SuratMasuk::create($validated);
+
+        return redirect()->route('surat-masuk.index')
+            ->with('success', 'Surat berhasil ditambahkan.');
+    }
+
     public function show($id)
     {
-        // Mencari data berdasarkan ID di database
-        $surat = SuratMasuk::find($id);
-
-        // Jika data tidak ditemukan, tampilkan error 404
-        if (!$surat) {
-            abort(404, 'Surat tidak ditemukan');
-        }
-
+        $surat = SuratMasuk::findOrFail($id);
         return view('surat-masuk.show', compact('surat'));
+    }
+
+    public function edit($id)
+    {
+        $surat = SuratMasuk::findOrFail($id);
+        return view('surat-masuk.edit', compact('surat'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $surat = SuratMasuk::findOrFail($id);
+
+        $validated = $request->validate([
+            'nomor_surat' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'pengirim' => 'required|string|max:255',
+            'perihal' => 'required|string|max:255',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $surat->update($validated);
+
+        return redirect()->route('surat-masuk.index')
+            ->with('success', 'Surat berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $surat = SuratMasuk::findOrFail($id);
+        $surat->delete();
+
+        return redirect()->route('surat-masuk.index')
+            ->with('success', 'Surat berhasil dihapus.');
     }
 }

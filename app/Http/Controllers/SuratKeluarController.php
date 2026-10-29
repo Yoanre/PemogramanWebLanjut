@@ -3,42 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SuratKeluar; // Panggil Model SuratKeluar
 
 class SuratKeluarController extends Controller
 {
-    // Fungsi privat untuk menampung data dummy surat keluar
-    private function getDataSuratKeluar()
-    {
-        return [
-            [
-                'id'          => 1,
-                'nomor_surat' => 'SK-001/X/2026',
-                'tanggal'     => '12-10-2026',
-                'tujuan'      => 'Universitas Lain',
-                'perihal'     => 'Nota Kesepahaman Kerjasama',
-            ],
-            [
-                'id'          => 2,
-                'nomor_surat' => 'SK-002/X/2026',
-                'tanggal'     => '14-10-2026',
-                'tujuan'      => 'Dinas Pendidikan',
-                'perihal'     => 'Laporan Kegiatan Kampus',
-            ],
-        ];
-    }
-
-    // Method untuk menampilkan daftar surat keluar
+    // Method untuk menampilkan daftar surat keluar dari database
     public function index()
     {
-        $suratKeluar = $this->getDataSuratKeluar();
+        $suratKeluar = SuratKeluar::all();
         return view('surat-keluar.index', compact('suratKeluar'));
     }
 
-    // Method untuk menampilkan detail surat keluar berdasarkan ID
+    // Method untuk menampilkan detail surat keluar berdasarkan ID dari database
     public function show($id)
     {
-        $suratKeluar = $this->getDataSuratKeluar();
-        $surat = collect($suratKeluar)->firstWhere('id', $id);
+        $surat = SuratKeluar::find($id);
 
         if (!$surat) {
             abort(404, 'Surat keluar tidak ditemukan');
