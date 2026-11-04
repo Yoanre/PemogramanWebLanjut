@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Controllers; // atau namespace App\Http\Controllers; tergantung struktur awalmu
-
 namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;

@@ -9,12 +9,35 @@
                 <h2 class="text-2xl font-bold text-gray-900">Daftar Surat Keluar</h2>
                 <p class="text-sm text-gray-500">Menampilkan seluruh rekaman surat keluar instansi.</p>
             </div>
-            <div class="mt-4 md:mt-0">
-                <a href="/" class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800">
-                    &larr; Kembali ke Dashboard
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                <!-- Tombol Tambah Surat -->
+                <a href="{{ route('surat-keluar.create') }}"
+                   class="inline-flex items-center space-x-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-sm transition duration-150">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span>Tambah Surat</span>
+                </a>
+
+                <!-- Tombol Kembali ke Dashboard -->
+                <a href="/" class="inline-flex items-center space-x-1.5 text-sm font-semibold text-gray-600 hover:text-gray-900 border border-gray-300 bg-white px-3.5 py-2.5 rounded-lg shadow-sm transition duration-150">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Dashboard</span>
                 </a>
             </div>
         </div>
+
+        <!-- Notifikasi Pesan Sukses -->
+        @if (session('success'))
+            <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-center space-x-3 shadow-sm">
+                <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="text-sm font-medium">{{ session('success') }}</span>
+            </div>
+        @endif
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div class="overflow-x-auto">
@@ -48,10 +71,33 @@
                                     {{ $item->perihal }}
                                 </td>
                                 <td class="py-4 px-6 text-center">
-                                    <a href="/surat-keluar/{{ $item->id }}" 
-                                       class="inline-flex items-center px-3 py-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-md border border-indigo-200 hover:bg-indigo-600 hover:text-white transition duration-200">
-                                        Detail
-                                    </a>
+                                    <div class="inline-flex items-center space-x-2">
+                                        <!-- Tombol Detail -->
+                                        <a href="{{ route('surat-keluar.show', $item->id) }}"
+                                           title="Detail Surat"
+                                           class="inline-flex items-center px-2.5 py-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-lg border border-indigo-200 hover:bg-indigo-600 hover:text-white transition duration-200">
+                                            Detail
+                                        </a>
+
+                                        <!-- Tombol Edit -->
+                                        <a href="{{ route('surat-keluar.edit', $item->id) }}"
+                                           title="Edit Surat"
+                                           class="inline-flex items-center px-2.5 py-1.5 bg-amber-50 text-amber-700 text-xs font-semibold rounded-lg border border-amber-200 hover:bg-amber-600 hover:text-white transition duration-200">
+                                            Edit
+                                        </a>
+
+                                        <!-- Tombol Hapus -->
+                                        <form action="{{ route('surat-keluar.destroy', $item->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus surat ini?')"
+                                                    title="Hapus Surat"
+                                                    class="inline-flex items-center px-2.5 py-1.5 bg-red-50 text-red-700 text-xs font-semibold rounded-lg border border-red-200 hover:bg-red-600 hover:text-white transition duration-200">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

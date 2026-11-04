@@ -11,6 +11,6 @@ Route::get('/', [SuratMasukController::class, 'dashboard'])->name('dashboard');
 Route::resource('surat-masuk', SuratMasukController::class)
     ->parameters(['surat-masuk' => 'id']);
 
-// Route Surat Keluar yang sudah ada sebelumnya tetap dibiarkan
-Route::get('/surat-keluar', [SuratKeluarController::class, 'index']);
-Route::get('/surat-keluar/{id}', [SuratKeluarController::class, 'show']);
+// Resource Route untuk Surat Keluar (menggantikan route index dan show manual yang lama)
+Route::resource('surat-keluar', SuratKeluarController::class)
+    ->parameters(['surat-keluar' => 'id']);
