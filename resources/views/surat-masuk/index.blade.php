@@ -11,6 +11,7 @@
                 <p class="text-sm text-gray-500">Menampilkan seluruh rekaman surat masuk terbaru dalam sistem.</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                @can('manage-letters')
                 <!-- Tombol Tambah Surat dengan Ikon -->
                 <a href="{{ route('surat-masuk.create') }}" 
                    class="inline-flex items-center space-x-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-sm transition duration-150">
@@ -19,6 +20,7 @@
                     </svg>
                     <span>Tambah Surat</span>
                 </a>
+                @endcan
 
                 <!-- Tombol Kembali ke Dashboard -->
                 <a href="/" class="inline-flex items-center space-x-1.5 text-sm font-semibold text-gray-600 hover:text-gray-900 border border-gray-300 bg-white px-3.5 py-2.5 rounded-lg shadow-sm transition duration-150">
@@ -84,6 +86,7 @@
                                             <span>Detail</span>
                                         </a>
 
+                                        @can('manage-letters')
                                         <!-- Tombol Edit -->
                                         <a href="{{ route('surat-masuk.edit', $item->id) }}" 
                                            title="Edit Surat"
@@ -108,6 +111,7 @@
                                                 <span>Hapus</span>
                                             </button>
                                         </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

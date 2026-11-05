@@ -26,6 +26,20 @@
                 <a href="/surat-keluar" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Surat
                     Keluar</a>
             </nav>
+
+            @auth
+                <div class="flex items-center space-x-3 text-sm">
+                    <span class="text-gray-600">Masuk sebagai: <span class="font-semibold">{{ auth()->user()->name }}</span>
+                        <span class="text-xs text-gray-400">({{ auth()->user()->role }})</span></span>
+                    <form method="POST" action="{{ route('logout') }}" style="display:inline">
+                        @csrf
+                        <button type="submit"
+                                class="px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100">
+                            Keluar
+                        </button>
+                    </form>
+                </div>
+            @endauth
         </div>
     </header>
 

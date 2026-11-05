@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Aturan otorisasi di sisi server: hanya petugas yang boleh mengelola surat
+        Gate::define('manage-letters', function (User $user): bool {
+            return $user->role === 'petugas';
+        });
     }
 }
