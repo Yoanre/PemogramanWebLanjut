@@ -5,52 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Sistem Surat Masuk')</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- NAVBAR UTAMA (Otomatis tampil di semua halaman yang pakai layout ini) -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="p-2 bg-indigo-600 text-white rounded-lg font-bold text-xl">
-                    ✉️
-                </div>
-                <span class="font-bold text-xl text-gray-900 tracking-tight">E-Surat Masuk</span>
+    <!-- NAVBAR FLOATING PILL -->
+    <header class="fixed top-4 inset-x-0 z-50 px-4 flex justify-center pointer-events-none">
+        <nav class="glass-pill pointer-events-auto flex max-w-full items-center gap-1 rounded-full p-1.5 sm:gap-2">
+            <a href="/" class="flex items-center gap-2 pl-1.5 pr-2">
+                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-indigo-600 to-violet-600 text-base text-white shadow-md shadow-indigo-600/30">✉️</span>
+                <span class="hidden text-sm font-bold tracking-tight text-slate-900 md:inline">E-Surat</span>
+            </a>
+
+            <div class="flex items-center gap-0.5">
+                <a href="/" class="nav-link {{ request()->is('/') ? 'nav-link-active' : '' }}">Beranda</a>
+                <a href="/surat-masuk" class="nav-link {{ request()->is('surat-masuk*') ? 'nav-link-active' : '' }}">Surat Masuk</a>
+                <a href="/surat-keluar" class="nav-link {{ request()->is('surat-keluar*') ? 'nav-link-active' : '' }}">Surat Keluar</a>
             </div>
-            <nav class="flex space-x-6">
-                <a href="/" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Beranda</a>
-                <a href="/surat-masuk" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Surat Masuk</a>
-                <a href="/surat-keluar" class="text-sm font-semibold text-gray-600 hover:text-indigo-600">Surat
-                    Keluar</a>
-            </nav>
 
             @auth
-                <div class="flex items-center space-x-3 text-sm">
-                    <span class="text-gray-600">Masuk sebagai: <span class="font-semibold">{{ auth()->user()->name }}</span>
-                        <span class="text-xs text-gray-400">({{ auth()->user()->role }})</span></span>
+                <div class="flex items-center gap-2 pl-1">
+                    <span class="hidden items-center gap-2 rounded-full bg-white/50 py-1 pl-1 pr-3 text-xs text-slate-600 lg:flex">
+                        <span class="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 font-bold text-indigo-700">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                        <span class="font-semibold">{{ auth()->user()->name }}</span>
+                        <span class="text-slate-400">({{ auth()->user()->role }})</span>
+                    </span>
                     <form method="POST" action="{{ route('logout') }}" style="display:inline">
                         @csrf
                         <button type="submit"
-                                class="px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100">
+                                class="rounded-full border border-white/70 bg-white/60 px-3.5 py-2 text-xs font-semibold text-slate-700 transition hover:bg-white hover:text-red-600">
                             Keluar
                         </button>
                     </form>
                 </div>
             @endauth
-        </div>
+        </nav>
     </header>
 
-    <!-- AREA KONTEN UTAMA -->
-    <main class="flex-grow">
+    <!-- KONTEN (pt-24 supaya tidak tertutup navbar) -->
+    <main class="flex-grow pt-24">
         @yield('content')
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-6 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500">
+    <footer class="px-4 pb-6 pt-12">
+        <div class="glass mx-auto max-w-md rounded-full px-5 py-2.5 text-center text-xs text-slate-500">
             &copy; {{ date('Y') }} Sistem Pengelolaan Surat Masuk. All rights reserved.
         </div>
     </footer>

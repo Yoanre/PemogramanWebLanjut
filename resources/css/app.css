@@ -10,3 +10,36 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer base {
+    body {
+        color: #1e293b;
+        background:
+            radial-gradient(55rem 38rem at 8% -8%, #c7d2fe 0%, transparent 60%),
+            radial-gradient(45rem 36rem at 100% 5%, #fbcfe8 0%, transparent 55%),
+            radial-gradient(50rem 38rem at 55% 115%, #bae6fd 0%, transparent 60%),
+            #eef2ff;
+        background-attachment: fixed;
+    }
+}
+
+@layer components {
+    .glass {
+        @apply border border-white/60 bg-white/40 shadow-xl shadow-indigo-900/5 backdrop-blur-xl;
+    }
+    .glass-pill {
+        @apply border border-white/70 bg-white/55 shadow-lg shadow-indigo-900/10 backdrop-blur-2xl;
+    }
+    .nav-link {
+        @apply rounded-full px-3.5 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white/70 hover:text-indigo-700;
+    }
+    .nav-link-active {
+        @apply bg-indigo-600 text-white shadow-md shadow-indigo-600/30 hover:bg-indigo-600 hover:text-white;
+    }
+    .glass-input {
+        @apply rounded-xl border border-white/70 bg-white/50 px-3.5 py-2.5 text-slate-800 shadow-inner shadow-slate-900/5 outline-none backdrop-blur transition placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white/80 focus:ring-4 focus:ring-indigo-400/20;
+    }
+    .btn-primary {
+        @apply inline-flex items-center justify-center rounded-full bg-linear-to-r from-indigo-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 transition hover:-translate-y-0.5 hover:shadow-indigo-600/40;
+    }
+}
