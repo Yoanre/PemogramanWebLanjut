@@ -20,7 +20,8 @@
                 <span class="hidden text-sm font-bold tracking-tight text-slate-900 md:inline">E-Surat</span>
             </a>
 
-            <div class="flex items-center gap-0.5">
+            <div id="nav-links" class="relative flex items-center gap-0.5">
+                <span id="nav-pill" class="nav-pill" aria-hidden="true"></span>
                 <a href="/" class="nav-link {{ request()->is('/') ? 'nav-link-active' : '' }}">Beranda</a>
                 <a href="/surat-masuk" class="nav-link {{ request()->is('surat-masuk*') ? 'nav-link-active' : '' }}">Surat Masuk</a>
                 <a href="/surat-keluar" class="nav-link {{ request()->is('surat-keluar*') ? 'nav-link-active' : '' }}">Surat Keluar</a>

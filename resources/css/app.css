@@ -42,4 +42,24 @@
     .btn-primary {
         @apply inline-flex items-center justify-center rounded-full bg-linear-to-r from-indigo-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 transition hover:-translate-y-0.5 hover:shadow-indigo-600/40;
     }
+
+    /* Efek air mengalir pada navbar */
+    .nav-link {
+        @apply relative z-10;
+    }
+    .nav-pill {
+        @apply pointer-events-none absolute left-0 top-0 h-full rounded-full bg-indigo-600 opacity-0 shadow-md shadow-indigo-600/30;
+        transform-origin: center;
+    }
+    .nav-links-ready .nav-pill {
+        @apply opacity-100;
+    }
+    /* Setelah gelembung aktif, menu aktif cukup berwarna teks putih */
+    .nav-links-ready .nav-link-active,
+    .nav-links-ready .nav-link-active:hover {
+        @apply bg-transparent text-white shadow-none;
+    }
+    .nav-links-ready .nav-link {
+        transition: color 0.35s ease 0.12s, background-color 0.2s ease;
+    }
 }
