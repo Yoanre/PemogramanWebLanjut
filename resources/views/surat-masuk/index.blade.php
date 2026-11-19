@@ -37,6 +37,22 @@
             </div>
         @endif
 
+        {{-- Cari dan filter kategori --}}
+        <form method="GET" action="{{ route('surat-masuk.index') }}" class="glass mb-6 flex flex-col gap-3 rounded-3xl p-4 sm:flex-row sm:items-center">
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="Nomor, pengirim, atau perihal"
+                   aria-label="Cari surat" class="glass-input block w-full sm:flex-1">
+            <select name="category_id" aria-label="Filter kategori" class="glass-input block w-full sm:w-52">
+                <option value="">Semua kategori</option>
+                @foreach ($categories as $kategori)
+                    <option value="{{ $kategori->id }}" @selected(request('category_id') == $kategori->id)>{{ $kategori->nama }}</option>
+                @endforeach
+            </select>
+            <div class="flex items-center gap-3">
+                <button type="submit" class="btn-primary">Cari / Filter</button>
+                <a href="{{ route('surat-masuk.index') }}" class="text-sm font-medium text-slate-600 hover:text-indigo-700 hover:underline">Reset</a>
+            </div>
+        </form>
+
         <div class="glass rounded-3xl overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -47,17 +63,25 @@
                             <th class="py-4 px-6">Tanggal</th>
                             <th class="py-4 px-6">Pengirim</th>
                             <th class="py-4 px-6">Perihal</th>
+                            <th class="py-4 px-6">Kategori</th>
                             <th class="py-4 px-6 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/50 text-sm">
                         @forelse ($suratMasuk as $item)
                             <tr class="hover:bg-white/40 transition duration-150">
-                                <td class="py-4 px-6 font-medium text-slate-900">{{ $loop->iteration }}</td>
+                                <td class="py-4 px-6 font-medium text-slate-900">{{ $suratMasuk->firstItem() + $loop->index }}</td>
                                 <td class="py-4 px-6 font-mono text-indigo-600 font-semibold">{{ $item->nomor_surat }}</td>
                                 <td class="py-4 px-6 text-slate-600">{{ $item->tanggal }}</td>
                                 <td class="py-4 px-6 text-slate-800 font-medium">{{ $item->pengirim }}</td>
                                 <td class="py-4 px-6 text-slate-600">{{ $item->perihal }}</td>
+                                <td class="py-4 px-6">
+                                    @if ($item->category)
+                                        <span class="inline-flex rounded-full bg-indigo-50/80 px-3 py-1 text-xs font-semibold text-indigo-700">{{ $item->category->nama }}</span>
+                                    @else
+                                        <span class="text-xs text-slate-400">Tanpa kategori</span>
+                                    @endif
+                                </td>
                                 <td class="py-4 px-6 text-center">
                                     <div class="inline-flex items-center gap-2">
                                         {{-- Detail (ikon saja) --}}
@@ -97,8 +121,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="py-8 text-center text-slate-500">
-                                    Belum ada data surat masuk yang tersedia.
+                                <td colspan="7" class="py-8 text-center text-slate-500">
+                                    {{ request()->filled('q') || request()->filled('category_id') ? 'Tidak ada surat yang cocok dengan pencarian atau filter.' : 'Belum ada data surat masuk yang tersedia.' }}
                                 </td>
                             </tr>
                         @endforelse
@@ -106,5 +130,21 @@
                 </table>
             </div>
         </div>
+
+        {{-- Navigasi halaman --}}
+        @if ($suratMasuk->total() > 0)
+            <div class="mt-6 flex flex-col items-center justify-between gap-3 text-sm text-slate-600 sm:flex-row">
+                <p>Menampilkan {{ $suratMasuk->firstItem() }}&ndash;{{ $suratMasuk->lastItem() }} dari {{ $suratMasuk->total() }} surat</p>
+                <div class="flex items-center gap-2">
+                    @if ($suratMasuk->previousPageUrl())
+                        <a href="{{ $suratMasuk->previousPageUrl() }}" class="rounded-full border border-white/70 bg-white/50 px-4 py-2 font-semibold backdrop-blur transition hover:bg-white/80">Sebelumnya</a>
+                    @endif
+                    <span class="px-2">Halaman {{ $suratMasuk->currentPage() }} dari {{ $suratMasuk->lastPage() }}</span>
+                    @if ($suratMasuk->nextPageUrl())
+                        <a href="{{ $suratMasuk->nextPageUrl() }}" class="rounded-full border border-white/70 bg-white/50 px-4 py-2 font-semibold backdrop-blur transition hover:bg-white/80">Berikutnya</a>
+                    @endif
+                </div>
+            </div>
+        @endif
     </section>
 @endsection

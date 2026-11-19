@@ -32,9 +32,26 @@
                 <p class="text-base text-slate-600">{{ $surat->keterangan ?? '-' }}</p>
             </div>
 
+            <div>
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Kategori</span>
+                <p class="text-base text-slate-800">{{ $surat->category?->nama ?? 'Tanpa kategori' }}</p>
+            </div>
+
+            @if ($surat->lampiran)
+                <div>
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Lampiran</span>
+                    <p class="text-base">
+                        <a href="{{ asset('storage/' . $surat->lampiran) }}" target="_blank" rel="noopener" class="font-semibold text-indigo-600 hover:underline">Lihat lampiran</a>
+                    </p>
+                </div>
+            @endif
+
             <div class="pt-4 border-t border-white/60">
-                <a href="{{ route('surat-masuk.index') }}" class="inline-flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-800">
-                    &larr; Kembali ke Daftar Surat
+                <a href="{{ route('surat-masuk.index') }}" class="inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/50 px-5 py-2.5 text-sm font-semibold text-slate-600 backdrop-blur transition hover:bg-white/80">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Kembali ke Daftar Surat</span>
                 </a>
             </div>
         </div>
