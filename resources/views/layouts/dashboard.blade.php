@@ -10,10 +10,10 @@
                     Modul Manajemen Administrasi
                 </span>
                 <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-slate-900 mb-4">
-                    Apa itu Surat Masuk?
+                    E-Surat
                 </h1>
                 <p class="text-slate-600 text-base sm:text-lg leading-relaxed mb-6">
-                    <strong class="text-slate-800">Surat Masuk</strong> adalah semua jenis surat, dokumen, atau pemberitahuan tertulis yang diterima oleh suatu instansi, organisasi, atau perusahaan dari pihak luar (eksternal) maupun unit kerja lain secara resmi untuk ditindaklanjuti.
+                    <strong class="text-slate-800">E-Surat</strong> adalah sistem pengelolaan surat masuk dan keluar yang membantu Anda mencatat, mengarsipkan, dan melacak setiap surat dalam satu tempat. Surat dapat diunggah beserta lampirannya, dicari dengan cepat, dan diatur sesuai kategori seperti pemberitahuan, permohonan, atau undangan, sehingga alur surat menjadi lebih rapi dan mudah dipantau.
                 </p>
                 <div class="flex flex-wrap gap-4 justify-center md:justify-start">
                     <a href="/surat-masuk" class="btn-primary">Kelola Data Surat</a>

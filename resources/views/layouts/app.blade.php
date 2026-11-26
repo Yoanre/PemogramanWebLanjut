@@ -53,7 +53,7 @@
 
     <footer class="px-4 pb-6 pt-12">
         <div class="glass mx-auto max-w-md rounded-full px-5 py-2.5 text-center text-xs text-slate-500">
-            &copy; {{ date('Y') }} Sistem Pengelolaan Surat Masuk. All rights reserved.
+            &copy; {{ date('Y') }} Sistem Pengelolaan Surat Masuk. All rights reserved. By: Yoanre Louis
         </div>
     </footer>
 
